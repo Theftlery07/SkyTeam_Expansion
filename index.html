@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body onload="init()">
+    <script src="index.js"></script>
+    <form onsubmit="return save_card();" id="card_form">
+        <input type="text" placeholder="Airport Code" id="">
+        <input type="text" placeholder="Airport Name" id=""><br>
+        <label>EVIL STUFF</label><br>
+        <input type="checkbox" id="fuel_leak" name="fuel_leak">
+        <label for="fuel_leak">Oil Leak</label><br>
+        <input type="checkbox" id="headwind" name="headwind">
+        <label for="headwind">Headwind</label><br>
+        <input type="checkbox" id="trainee" name="trainee">
+        <label for="trainee">Trainee</label><br>
+        <input type="checkbox" id="fuel_truck" name="fuel_truck">
+        <label for="fuel_truck">Fuel Truck</label><br>
+        <input type="checkbox" id="ice_breaks" name="ice_breaks">
+        <label for="ice_breaks">Ice Breaks</label><br>
+        <input type="checkbox" id="real_time" name="real_time">
+        <label for="real_time">Real Time</label><br><br>
+
+        <label>Expansion Content</label><br>
+        <input type="checkbox" id="tailwind" name="tailwind">
+        <label for="tailwind">Tailwind</label><br>
+        <input type="checkbox" id="alarm" name="alarm">
+        <label for="alarm">Alarm</label><br>
+        <input type="checkbox" id="special_rules" name="special_rules">
+        <label for="special_rules">Special Rules</label><br><br>
+
+        <input type="submit" value="Save Card">
+    </form>
+
+
+</body>
+</html>
