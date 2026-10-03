@@ -1,0 +1,99 @@
+@media print {
+    body {
+        -webkit-print-color-adjust: exact; /* For Chrome, Safari, and Edge */
+        print-color-adjust: exact;         /* Standard property for Firefox */
+    }
+}
+.top {
+    background-image: url('Images/Backgrounds/Top_Background_Black.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 32.25mm;
+    width: 40mm;
+    display: grid;
+    grid-template-areas: "code modules modules"
+                         "name modules modules"
+                         "airplane navigation alarms"
+                         "airplane center alarms"
+                         "airplane future alarms";
+    grid-template-columns: 1fr 2.5fr 1fr;
+    grid-template-rows: 0.7fr 0.7fr 1fr 1fr 1fr;
+    border-radius: 2.5mm 2.5mm 0 0;
+}
+.square {
+    background-image: url('Images/Backgrounds/Square_background.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 22.5mm;
+    width: 40mm;
+    display: grid;
+    grid-template-areas: "airplane navigation alarms"
+                         "airplane center alarms"
+                         "airplane future alarms";
+    grid-template-columns: 1fr 2.5fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+}
+.bottom {
+    background-image: url('Images/Backgrounds/Bottom_Background.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 24.8mm;
+    width: 40mm;
+    display: grid;
+    grid-template-areas: "airplane navigation alarms"
+                         "airplane center alarms"
+                         "airplane future alarms";
+    grid-template-columns: 1fr 2.5fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 0.37fr;
+    border-radius: 0 0 2.5mm 2.5mm;
+}
+div.airplane{
+    grid-area: airplane;
+    display: block;
+    align-self: center;
+}
+img.airplane{
+    width: 4mm;
+    padding: 0.5mm 0 0.5mm 2mm;
+}
+.navigation{
+    width: 12mm;
+    grid-area: navigation;
+    justify-self: center;
+}
+
+div.future{
+    grid-area: future;
+    align-content: center;
+    justify-self: center;
+    background-color: white;
+    padding: 0.5mm 1.5mm 0 1.5mm;
+    margin-bottom: 2.9mm !important;
+    border-radius: 1mm 1mm 0 0;
+}
+img.future{
+    width: 4mm;
+    padding: 0 0.25mm 0 0.25mm;
+    margin-bottom: -0.5mm
+}
+div.module{
+    grid-area: modules;
+    align-self: center;
+    display: flex;
+    justify-content: flex-end;
+}
+img.module{
+    width: 7mm;
+    padding: 0 1mm 0 1mm;
+}
+
+.airport_code{
+    color: white;
+    font-family: 'Source Code Pro', monospace;
+    font-size: 4mm;
+}
+.airport_name{
+    color: white;
+    font-family: 'Source Code Pro', monospace;
+    font-size: 2.5mm;
+}

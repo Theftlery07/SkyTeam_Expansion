@@ -3,12 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body onload="init()">
     <script src="index.js"></script>
-    <form onsubmit="return save_card();" id="card_form">
-        <input type="text" placeholder="Airport Code" id="">
-        <input type="text" placeholder="Airport Name" id=""><br>
+    <form style="display: none" onsubmit="return save_card();" id="card_form">
+        <input type="text" placeholder="Airport Code" id="airport_code">
+        <input type="text" placeholder="Airport Name" id="airport_name">
+        <input type="submit" value="Save Card"><br>
+
         <label>EVIL STUFF</label><br>
         <input type="checkbox" id="fuel_leak" name="fuel_leak">
         <label for="fuel_leak">Oil Leak</label><br>
@@ -31,9 +34,27 @@
         <input type="checkbox" id="special_rules" name="special_rules">
         <label for="special_rules">Special Rules</label><br><br>
 
-        <input type="submit" value="Save Card">
-    </form>
+        <label for="card_length">Card Length</label><br>
+        <input type="number" min="2" value="5" id="card_length">
 
+        <span id="card_square">
+            <input type="number" min="0" value="0"><!--Airplanes-->
+            <input type="number" min="0" value="0"><!--Penguins-->
+            <input type="number" min="0" value="0"><!--Alarms-->
+            <input type="number" min="0" value="0"><!--Future planes-->
+            <input type="number" min="-2" value="2"><!--Min Steering Angle-->
+            <input type="number" min="-2" value="2"><!--Max Steering Angle-->
+        </span><br>
+
+    </form>
+    <button onclick="make_top()">Make Top!</button>
+    <button onclick="make_square()">Make Square!</button>
+    <button onclick="make_bottom()">Make Bottom!</button>
+    <br>
+    <button onclick="make_card()">Make Card!</button>
+    <button onclick="clear_all()">Clear!</button>
+    <br>
+    <br>
 
 </body>
 </html>
