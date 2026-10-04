@@ -4,8 +4,26 @@
         print-color-adjust: exact;         /* Standard property for Firefox */
     }
 }
-.top {
+.block{
+    display: grid;
+    grid-template-areas: "square form";
+    grid-template-columns: max-content 1fr;
+    justify-items: left;
+}
+.top.green{
+    background-image: url('Images/Backgrounds/Top_Background_Green.png');
+}
+.top.yellow{
+    background-image: url('Images/Backgrounds/Top_Background_Yellow.png');
+}
+.top.red{
+    background-image: url('Images/Backgrounds/Top_Background_Red.png');
+}
+.top.black{
     background-image: url('Images/Backgrounds/Top_Background_Black.png');
+}
+.top {
+    background-image: url('Images/Backgrounds/Top_Background_Green.png');
     background-repeat: no-repeat;
     background-size: contain;
     height: 32.25mm;
@@ -13,24 +31,25 @@
     display: grid;
     grid-template-areas: "code modules modules"
                          "name modules modules"
-                         "airplane navigation alarms"
-                         "airplane center alarms"
-                         "airplane future alarms";
-    grid-template-columns: 1fr 2.5fr 1fr;
-    grid-template-rows: 0.7fr 0.7fr 1fr 1fr 1fr;
+                         "airplane navigation alarm"
+                         "airplane center alarm"
+                         "airplane future alarm";
+    grid-template-columns: 1fr 1.5fr 1fr;
+    grid-template-rows: 0.7fr 0.6fr 1fr 1fr 1fr;
     border-radius: 2.5mm 2.5mm 0 0;
 }
 .square {
+    grid-area: square;
     background-image: url('Images/Backgrounds/Square_background.png');
     background-repeat: no-repeat;
     background-size: contain;
     height: 22.5mm;
     width: 40mm;
     display: grid;
-    grid-template-areas: "airplane navigation alarms"
-                         "airplane center alarms"
-                         "airplane future alarms";
-    grid-template-columns: 1fr 2.5fr 1fr;
+    grid-template-areas: "airplane navigation alarm"
+                         "airplane center alarm"
+                         "airplane future alarm";
+    grid-template-columns: 1fr 1.5fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
 }
 .bottom {
@@ -40,26 +59,33 @@
     height: 24.8mm;
     width: 40mm;
     display: grid;
-    grid-template-areas: "airplane navigation alarms"
-                         "airplane center alarms"
-                         "airplane future alarms";
-    grid-template-columns: 1fr 2.5fr 1fr;
+    grid-template-areas: "airplane navigation alarm"
+                         "airplane center alarm"
+                         "airplane future alarm";
+    grid-template-columns: 1fr 1.5fr 1fr;
     grid-template-rows: 1fr 1fr 1fr 0.37fr;
     border-radius: 0 0 2.5mm 2.5mm;
 }
 div.airplane{
+    height: 100%;
     grid-area: airplane;
-    display: block;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
     align-self: center;
+    padding: 2.5mm 0 2.5mm 2mm;
+    justify-content: center;
+    box-sizing: border-box;
 }
 img.airplane{
-    width: 4mm;
-    padding: 0.5mm 0 0.5mm 2mm;
+    width: 3.5mm;
+    padding: 0.5mm;
 }
 .navigation{
     width: 12mm;
     grid-area: navigation;
     justify-self: center;
+    visibility: hidden;
 }
 
 div.future{
@@ -70,6 +96,7 @@ div.future{
     padding: 0.5mm 1.5mm 0 1.5mm;
     margin-bottom: 2.9mm !important;
     border-radius: 1mm 1mm 0 0;
+    visibility: hidden;
 }
 img.future{
     width: 4mm;
@@ -81,19 +108,43 @@ div.module{
     align-self: center;
     display: flex;
     justify-content: flex-end;
+    padding-right: 1mm;
 }
 img.module{
-    width: 7mm;
-    padding: 0 1mm 0 1mm;
+    max-height: 7mm;
+    flex: 0 1 auto;
+    min-width: 0;
+    padding: 0 0.5mm 0 0.5mm;
+    object-fit: contain;
+    display: none
 }
-
+div.alarm{
+    grid-area: alarm;
+    padding: 3.5mm 2.5mm 3.5mm 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+img.alarm{
+    max-width: 5mm;
+    margin-bottom: 1mm;
+}
 .airport_code{
     color: white;
-    font-family: 'Source Code Pro', monospace;
+    font-family: "Werksatz", sans-serif;
+    font-weight: 1000;
     font-size: 4mm;
+    min-width: 0;
+    padding: 1mm 0 0 1.5mm;
 }
 .airport_name{
     color: white;
-    font-family: 'Source Code Pro', monospace;
+    font-family: 'Werksatz', sans-serif;
+    font-weight: 600;
     font-size: 2.5mm;
+    min-width: 0;
+    padding-left: 1.5mm;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-overflow: ".";
 }
