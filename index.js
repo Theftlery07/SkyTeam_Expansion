@@ -6,11 +6,11 @@ const modules = ["A", "B", "C", "D",
 const squares = []
 const cards = []
 let html
-const default_size = 4 // px
+const default_size = 16 // px
 
 function init(){
     html = document.getElementsByTagName("html")[0]
-    // html.style.fontSize = default_size + "px"
+    html.style.fontSize = default_size + "px"
 }
 function make_card(){
     cards.push(new Card())
@@ -124,7 +124,7 @@ class Card{
                 this.resize(newHeight)
             }
         });
-        // this.resizer.observe(this.card_area);
+        this.resizer.observe(this.card_area);
     }
     add_square(){
         let position = Number(this.card_area.lastElementChild.previousElementSibling.style.order) + 2
@@ -142,7 +142,6 @@ class Card{
         let ratio = screen_height / height
         let fontSize = parseFloat(html.style.fontSize) * ratio
         html.style.fontSize = fontSize+"px"
-        document.body.style.fontSize = String(fontSize * 4)+"px"
     }
 }
 class Square{
@@ -162,15 +161,15 @@ class Square{
 
         make_label(this.form_right_labels, "", "Airplane")
         this.input_airplane =
-            make_input_number(this.form_right_inputs, "", 0, 0, 6, () =>
+            make_input_number(this.form_right_inputs, "number", 0, 0, 6, () =>
                     this.update_number(this.airplane_area, this.input_airplane.value, "Images/Airplane.png", "airplane"))
         make_label(this.form_right_labels, "", "Future")
         this.input_future =
-            make_input_number(this.form_right_inputs, "", 0, 0, 3, () =>
+            make_input_number(this.form_right_inputs, "number", 0, 0, 3, () =>
                 this.update_number(this.future_area, this.input_future.value, "Images/Future_Plane.png", "future"))
         make_label(this.form_right_labels, "", "Alarm")
         this.input_alarm =
-            make_input_number(this.form_right_inputs, "", 0, 0, 2, () =>
+            make_input_number(this.form_right_inputs, "number", 0, 0, 2, () =>
                 this.update_number(this.alarm_area, this.input_alarm.value, "Images/Alarm_Icon.png", "alarm"))
         make_label(this.form_right_steering, "", "Steering")
         make_break(this.form_right_steering)
