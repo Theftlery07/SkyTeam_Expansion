@@ -143,7 +143,7 @@ class Card{
         let width_ratio = screen_width / rect.width
         console.log("screen width", screen_width, "width", rect.width)
         console.log("w:"+width_ratio +" h:"+height_ratio)
-        let fontSize = parseFloat(html.style.fontSize) * Math.min(height_ratio, width_ratio)
+        let fontSize = Math.floor(parseFloat(html.style.fontSize) * Math.min(height_ratio, width_ratio))
         html.style.fontSize = fontSize+"px"
     }
 }

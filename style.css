@@ -20,10 +20,11 @@ input[type="number"] {
 html {
     /*font-size: 4px*/
 }
-/*body{*/
-/*    max-width: 100vw;*/
-/*    max-height: 100vh;*/
-/*}*/
+body{
+    /*display: flex;*/
+    /*justify-content: center;*/
+    /*flex-wrap: wrap;*/
+}
 .block{
     display: grid;
     grid-template-areas: "mod        mod    mod"
@@ -304,4 +305,8 @@ button{
 }
 .card{
     width: max-content;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin: 0 auto;
 }
