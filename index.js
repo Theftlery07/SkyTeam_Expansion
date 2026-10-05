@@ -120,8 +120,7 @@ class Card{
 
         this.resizer = new ResizeObserver((entries) => {
             for (let entry of entries) {
-                const newHeight = entry.contentRect.height
-                this.resize(newHeight)
+                this.resize(entry.contentRect)
             }
         });
         this.resizer.observe(this.card_area);
@@ -137,10 +136,14 @@ class Card{
     delete(){
         this.card_area.remove()
     }
-    resize(height){
+    resize(rect){
         let screen_height = window.innerHeight
-        let ratio = screen_height / height
-        let fontSize = parseFloat(html.style.fontSize) * ratio
+        let screen_width = window.innerWidth
+        let height_ratio = screen_height / rect.height
+        let width_ratio = screen_width / rect.width
+        console.log("screen width", screen_width, "width", rect.width)
+        console.log("w:"+width_ratio +" h:"+height_ratio)
+        let fontSize = parseFloat(html.style.fontSize) * Math.min(height_ratio, width_ratio)
         html.style.fontSize = fontSize+"px"
     }
 }

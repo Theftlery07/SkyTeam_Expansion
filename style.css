@@ -302,3 +302,6 @@ button{
     width: auto;
     font-size: 1rem;
 }
+.card{
+    width: max-content;
+}
