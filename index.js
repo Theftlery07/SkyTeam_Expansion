@@ -1,6 +1,8 @@
 const nav = ["Neg2", "Neg1", "0", "Pos1", "Pos2"]
 const top_color = ["green", "yellow", "red", "black"]
-const modules = ["A", "B", "C", "D", "5000", "Mute", "Rules", "Alarm", "Headwind", "Tailwind", "Oil_Leak", "Intern", "Real_Time", "Oil_Truck", "Ice_Breaks", "Ability_1", "Ability_2"]
+const modules = ["A", "B", "C", "D",
+                        "5000", "Mute", "Rules", "Alarm", "Oil_Truck", "Headwind", "Tailwind", "Oil_Leak", "Real_Time", "Ice_Breaks", "Intern",
+                        "Ability_1", "Ability_2"]
 const squares = []
 
 function init(){
@@ -98,38 +100,57 @@ function make_button(parent, class_name, text, onClick){
     parent.appendChild(button)
     return button
 }
+function make_label(parent, class_name, text){
+    let label = document.createElement("label")
+    if(class_name !== "") label.classList.add(class_name)
+    label.textContent = text
+    parent.appendChild(label)
+    return label
+}
+function make_break(parent){
+    parent.appendChild(document.createElement("br"))
+}
 
 class Square{
     constructor(position){
         this.main_area = make_div(document.body, "block")
         this.main_area.style.order = position
         this.square = make_div(this.main_area, "square")
-        this.form = make_div(this.main_area)
+        this.form_right = make_div(this.main_area, "form_right")
+        this.form_right_inputs = make_div(this.form_right, "inputs")
+        this.form_right_labels = make_div(this.form_right, "labels")
+        this.form_right_steering = make_div(this.form_right, "steering")
+        this.form_left = make_div(this.main_area, "form_left")
 
         this.content_setup(this.square)
 
+        make_label(this.form_right_labels, "", "Airplane")
         this.input_airplane =
-            make_input_number(this.form, "", 0, 0, 6, () =>
+            make_input_number(this.form_right_inputs, "", 0, 0, 6, () =>
                     this.update_number(this.airplane_area, this.input_airplane.value, "Images/Airplane.png", "airplane"))
+        make_label(this.form_right_labels, "", "Future")
         this.input_future =
-            make_input_number(this.form, "", 0, 0, 3, () =>
+            make_input_number(this.form_right_inputs, "", 0, 0, 3, () =>
                 this.update_number(this.future_area, this.input_future.value, "Images/Future_Plane.png", "future"))
+        make_label(this.form_right_labels, "", "Alarm")
         this.input_alarm =
-            make_input_number(this.form, "", 0, 0, 2, () =>
+            make_input_number(this.form_right_inputs, "", 0, 0, 2, () =>
                 this.update_number(this.alarm_area, this.input_alarm.value, "Images/Alarm_Icon.png", "alarm"))
+        make_label(this.form_right_steering, "", "Steering")
+        make_break(this.form_right_steering)
         this.input_nav = new Array(5)
         for (let i = 0; i < 5; i++) {
-            this.input_nav[i] = make_input_checkbox(this.form, "", false, () =>
+            this.input_nav[i] = make_input_checkbox(this.form_right_steering, "navigation", false, () =>
             this.update_nav(this.input_nav[i].checked, this.nav_good[i], this.nav_bad[i]))
         }
-        this.delete_button =
-            make_button(this.form, "", "Delete", () =>
-                this.delete())
         this.up_button =
-            make_button(this.form, "", "Up", () =>
+            make_button(this.form_left, "", "↑", () =>
                 this.move_up())
+        this.delete_button =
+            make_button(this.form_left, "", "x", () =>
+                this.delete())
         this.down_button =
-            make_button(this.form, "", "Down", () =>
+            make_button(this.form_left, "", "↓", () =>
                 this.move_down())
         squares.push(this)
     }
@@ -191,24 +212,26 @@ class Square{
         }
     }
     delete(){
+        if(document.body.lastElementChild.previousElementSibling !== null){
+            let position = Number(document.body.lastElementChild.previousElementSibling.style.order)
+            for (let i = this.main_area.style.order; i < position; i++) {
+                this.move_down()
+            }
+        }
         this.main_area.remove()
         squares.splice(squares.indexOf(this), 1)
     }
     move_up(){
+        if(this.main_area.previousElementSibling === null) return
         this.main_area.previousElementSibling.style.order = String(Number(this.main_area.previousElementSibling.style.order) + 1)
         this.main_area.style.order = String(Number(this.main_area.style.order) - 1)
         this.main_area.previousElementSibling.before(this.main_area)
-        // this.update_buttons()
     }
     move_down(){
+        if(this.main_area.nextElementSibling === null) return
         this.main_area.nextElementSibling.style.order = String(Number(this.main_area.nextElementSibling.style.order) - 1)
         this.main_area.style.order = String(Number(this.main_area.style.order) + 1)
         this.main_area.nextElementSibling.after(this.main_area)
-        // this.update_buttons()
-    }
-    update_buttons(){
-        this.up_button.style.visibility = this.main_area.previousElementSibling.classList.contains("top") ? "hidden" : "visible"
-        this.down_button.style.visibility = this.main_area.nextElementSibling.classList.contains("bottom") ? "hidden" : "visible"
     }
 }
 class Top extends Square{
@@ -216,28 +239,34 @@ class Top extends Square{
         super(-1);
         this.square.classList.replace("square", "top")
         this.square.classList.add(top_color[0])
-        //     make_img(module, "Images/Modules/"+modules[Math.floor(Math.random()*modules.length)]+".png", "module")
+        this.form_right_etc = make_div(this.form_right, "etc")
+        this.form_right_color = make_div(this.form_right, "color")
+        this.form_right_text = make_div(this.form_right, "text")
         this.extra_content_setup(this.square)
 
         this.input_code =
-            make_input_text(this.form, "", "Airport Code", () =>
+            make_input_text(this.form_right_text, "text", "Airport Code", () =>
                 this.update_text(this.airport_code, this.input_code.value, "XXX"))
         this.input_name =
-            make_input_text(this.form, "", "Airport Name", () =>
+            make_input_text(this.form_right_text, "text", "Airport Name", () =>
                 this.update_text(this.airport_name, this.input_name.value, "xxxxx"))
         this.input_color = new Array(4)
         for (let i = 0; i < 4; i++) {
-            this.input_color[i] = make_input_radio(this.form, "", top_color[i], "color", i === 0, () =>
+            this.input_color[i] = make_input_radio(this.form_right_color, "color", top_color[i], "color", i === 0, () =>
                 this.update_color(top_color[i], this.input_color[i].checked))
+            this.input_color[i].style.borderColor = top_color[i]
+            this.input_color[i].style.color = top_color[i]
         }
         this.input_module = new Array(modules.length)
         for (let i = 0; i < modules.length; i++) {
-            this.input_module[i] = make_input_checkbox(this.form, "", false, () =>
+            this.input_module[i] = make_input_checkbox(this.form_right_etc, "module", false, () =>
             this.update_module(this.module[i], this.input_module[i].checked))
+            this.input_module[i].style.backgroundImage = "url('" + "Images/Modules/"+modules[i]+".png" + "')"
         }
-        this.delete_button.remove()
-        this.up_button.remove()
-        this.down_button.remove()
+        // this.input_module[4].style.width = "16mm"
+        this.delete_button.style.visibility = "hidden"
+        this.up_button.style.visibility = "hidden"
+        this.down_button.style.visibility = "hidden"
     }
     update_text(text, value, placeholder){
         text.textContent = value ? value : placeholder
@@ -268,8 +297,8 @@ class Bottom extends Square{
     constructor() {
         super(999);
         this.square.classList.replace("square", "bottom")
-        this.delete_button.remove()
-        this.up_button.remove()
-        this.down_button.remove()
+        this.delete_button.style.visibility = "hidden"
+        this.up_button.style.visibility = "hidden"
+        this.down_button.style.visibility = "hidden"
     }
 }

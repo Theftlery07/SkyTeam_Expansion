@@ -6,9 +6,69 @@
 }
 .block{
     display: grid;
-    grid-template-areas: "square form";
-    grid-template-columns: max-content 1fr;
+    grid-template-areas: "form_left square form_right";
+    grid-template-columns: min-content max-content 1fr;
     justify-items: left;
+}
+.form_right {
+    padding-left: 2mm;
+    grid-area: form_right;
+    display: grid;
+    grid-template-areas: "text text color etc"
+                         "labels inputs steering etc";
+    grid-template-columns: min-content min-content max-content;
+    grid-column-gap: 2mm;
+    height: 22.25mm;
+}
+.labels{
+    grid-area: labels;
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+    justify-content: center;
+}
+.inputs{
+    grid-area: inputs;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+.steering{
+    grid-area: steering;
+    text-align: center;
+    align-self: center;
+}
+.etc{
+    grid-area: etc;
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    align-self: start;
+    flex-wrap: wrap;
+    min-height: 0;
+    min-width: 0;
+
+}
+.color{
+    grid-area: color;
+    align-self: center;
+    justify-self: center;
+}
+div.text{
+    grid-area: text;
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+}
+input.text{
+    width:100%;
+}
+.form_left {
+    grid-area: form_left;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 .top.green{
     background-image: url('Images/Backgrounds/Top_Background_Green.png');
@@ -81,13 +141,54 @@ img.airplane{
     width: 3.5mm;
     padding: 0.5mm;
 }
-.navigation{
+img.navigation{
     width: 12mm;
     grid-area: navigation;
     justify-self: center;
     visibility: hidden;
 }
-
+input[type="checkbox"].navigation{
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: #fff;
+    width: 5mm;
+    height: 5mm;
+    border: 0.75mm solid green;
+    border-radius: 1mm;
+}
+input[type="checkbox"].navigation:checked{
+    background-color: red;
+    border: 0.15em solid red;
+}
+input[type="checkbox"].module{
+    -webkit-appearance: none;
+    appearance: none;
+    width: 10mm;
+    height: 10mm;
+    border: 0.7mm solid black;
+    border-radius: 2mm;
+    background-color: black;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+input[type="checkbox"].module:checked{
+    background-color: green;
+    border: 0.7mm solid green;
+}
+input[type="radio"].color{
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: #fff;
+    width: 5mm;
+    height: 5mm;
+    border: 0.75mm solid;
+    border-radius: 50%;
+}
+input[type="radio"].color:checked{
+    border: 0.15em solid;
+    background-color: currentColor;
+}
 div.future{
     grid-area: future;
     align-content: center;
