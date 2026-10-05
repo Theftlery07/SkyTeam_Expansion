@@ -148,7 +148,6 @@ class Square{
     constructor(parent, position){
         this.body = parent;
         this.main_area = make_div(this.body, "block")
-        this.main_area.classList.add("middle_block")
         this.main_area.style.order = position
         this.square = make_div(this.main_area, "square")
         this.input_right = make_div(this.main_area, "input_right")
@@ -272,10 +271,10 @@ class Square{
 class Top extends Square{
     constructor(parent) {
         super(parent, 0);
-        this.main_area.classList.replace("middle_block", "top_block")
         this.square.classList.replace("square", "top")
         this.square.classList.add(top_color[0])
         this.form_right_etc = make_div(this.input_right, "etc")
+        this.mod = make_div(this.main_area, "mod")
         this.form_right_color = make_div(this.input_right, "color")
         this.form_right_text = make_div(this.input_right, "text")
         this.extra_content_setup(this.square)
@@ -295,7 +294,7 @@ class Top extends Square{
         }
         this.input_module = new Array(modules.length)
         for (let i = 0; i < modules.length; i++) {
-            this.input_module[i] = make_input_checkbox(this.form_right_etc, "module", false, () =>
+            this.input_module[i] = make_input_checkbox(this.mod, "module", false, () =>
             this.update_module(this.module[i], this.input_module[i].checked))
             this.input_module[i].style.backgroundImage = "url('" + "Images/Modules/"+modules[i]+".png" + "')"
         }
@@ -331,7 +330,6 @@ class Top extends Square{
 class Bottom extends Square{
     constructor(parent) {
         super(parent, 999);
-        this.main_area.classList.replace("middle_block", "bottom_block")
         this.square.classList.replace("square", "bottom")
         this.delete_button.style.visibility = "hidden"
         this.up_button.style.visibility = "hidden"
