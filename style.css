@@ -1,24 +1,27 @@
 @media print {
     body {
-        -webkit-print-color-adjust: exact; /* For Chrome, Safari, and Edge */
-        print-color-adjust: exact;         /* Standard property for Firefox */
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
     }
+}
+html {
+    /*font-size: 4px*/
 }
 .block{
     display: grid;
-    grid-template-areas: "form_left square form_right";
+    grid-template-areas: "input_left square input_right";
     grid-template-columns: min-content max-content 1fr;
     justify-items: left;
 }
-.form_right {
-    padding-left: 2mm;
-    grid-area: form_right;
+.input_right {
+    padding-left: 2rem;
+    grid-area: input_right;
     display: grid;
     grid-template-areas: "text text color etc"
                          "labels inputs steering etc";
     grid-template-columns: min-content min-content max-content;
-    grid-column-gap: 2mm;
-    height: 22.25mm;
+    grid-column-gap: 2rem;
+    height: 22.25rem;
 }
 .labels{
     grid-area: labels;
@@ -64,8 +67,8 @@ div.text{
 input.text{
     width:100%;
 }
-.form_left {
-    grid-area: form_left;
+.input_left {
+    grid-area: input_left;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -86,8 +89,8 @@ input.text{
     background-image: url('Images/Backgrounds/Top_Background_Green.png');
     background-repeat: no-repeat;
     background-size: contain;
-    height: 32.25mm;
-    width: 40mm;
+    height: 32.25rem;
+    width: 40rem;
     display: grid;
     grid-template-areas: "code modules modules"
                          "name modules modules"
@@ -96,15 +99,15 @@ input.text{
                          "airplane future alarm";
     grid-template-columns: 1fr 1.5fr 1fr;
     grid-template-rows: 0.7fr 0.6fr 1fr 1fr 1fr;
-    border-radius: 2.5mm 2.5mm 0 0;
+    border-radius: 2.5rem 2.5rem 0 0;
 }
 .square {
     grid-area: square;
     background-image: url('Images/Backgrounds/Square_background.png');
     background-repeat: no-repeat;
     background-size: contain;
-    height: 22.5mm;
-    width: 40mm;
+    height: 22.5rem;
+    width: 40rem;
     display: grid;
     grid-template-areas: "airplane navigation alarm"
                          "airplane center alarm"
@@ -116,15 +119,15 @@ input.text{
     background-image: url('Images/Backgrounds/Bottom_Background.png');
     background-repeat: no-repeat;
     background-size: contain;
-    height: 24.8mm;
-    width: 40mm;
+    height: 24.8rem;
+    width: 40rem;
     display: grid;
     grid-template-areas: "airplane navigation alarm"
                          "airplane center alarm"
                          "airplane future alarm";
     grid-template-columns: 1fr 1.5fr 1fr;
     grid-template-rows: 1fr 1fr 1fr 0.37fr;
-    border-radius: 0 0 2.5mm 2.5mm;
+    border-radius: 0 0 2.5rem 2.5rem;
 }
 div.airplane{
     height: 100%;
@@ -133,16 +136,16 @@ div.airplane{
     flex-direction: column;
     flex-wrap: wrap;
     align-self: center;
-    padding: 2.5mm 0 2.5mm 2mm;
+    padding: 2.5rem 0 2.5rem 2rem;
     justify-content: center;
     box-sizing: border-box;
 }
 img.airplane{
-    width: 3.5mm;
-    padding: 0.5mm;
+    width: 3.5rem;
+    padding: 0.5rem;
 }
 img.navigation{
-    width: 12mm;
+    width: 12rem;
     grid-area: navigation;
     justify-self: center;
     visibility: hidden;
@@ -151,10 +154,10 @@ input[type="checkbox"].navigation{
     -webkit-appearance: none;
     appearance: none;
     background-color: #fff;
-    width: 5mm;
-    height: 5mm;
-    border: 0.75mm solid green;
-    border-radius: 1mm;
+    width: 5rem;
+    height: 5rem;
+    border: 0.75rem solid green;
+    border-radius: 1rem;
 }
 input[type="checkbox"].navigation:checked{
     background-color: red;
@@ -163,10 +166,10 @@ input[type="checkbox"].navigation:checked{
 input[type="checkbox"].module{
     -webkit-appearance: none;
     appearance: none;
-    width: 10mm;
-    height: 10mm;
-    border: 0.7mm solid black;
-    border-radius: 2mm;
+    width: 10rem;
+    height: 10rem;
+    border: 0.7rem solid black;
+    border-radius: 2rem;
     background-color: black;
     background-size: contain;
     background-position: center;
@@ -174,15 +177,15 @@ input[type="checkbox"].module{
 }
 input[type="checkbox"].module:checked{
     background-color: green;
-    border: 0.7mm solid green;
+    border: 0.7rem solid green;
 }
 input[type="radio"].color{
     -webkit-appearance: none;
     appearance: none;
     background-color: #fff;
-    width: 5mm;
-    height: 5mm;
-    border: 0.75mm solid;
+    width: 5rem;
+    height: 5rem;
+    border: 0.75rem solid;
     border-radius: 50%;
 }
 input[type="radio"].color:checked{
@@ -194,57 +197,57 @@ div.future{
     align-content: center;
     justify-self: center;
     background-color: white;
-    padding: 0.5mm 1.5mm 0 1.5mm;
-    margin-bottom: 2.9mm !important;
-    border-radius: 1mm 1mm 0 0;
+    padding: 0.5rem 1.5rem 0 1.5rem;
+    margin-bottom: 2.9rem !important;
+    border-radius: 1rem 1rem 0 0;
     visibility: hidden;
 }
 img.future{
-    width: 4mm;
-    padding: 0 0.25mm 0 0.25mm;
-    margin-bottom: -0.5mm
+    width: 4rem;
+    padding: 0 0.25rem 0 0.25rem;
+    margin-bottom: -0.5rem
 }
 div.module{
     grid-area: modules;
     align-self: center;
     display: flex;
     justify-content: flex-end;
-    padding-right: 1mm;
+    padding-right: 1rem;
 }
 img.module{
-    max-height: 7mm;
+    max-height: 7rem;
     flex: 0 1 auto;
     min-width: 0;
-    padding: 0 0.5mm 0 0.5mm;
+    padding: 0 0.5rem 0 0.5rem;
     object-fit: contain;
     display: none
 }
 div.alarm{
     grid-area: alarm;
-    padding: 3.5mm 2.5mm 3.5mm 0;
+    padding: 3.5rem 2.5rem 3.5rem 0;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
 }
 img.alarm{
-    max-width: 5mm;
-    margin-bottom: 1mm;
+    max-width: 5rem;
+    margin-bottom: 1rem;
 }
 .airport_code{
     color: white;
     font-family: "Werksatz", sans-serif;
     font-weight: 1000;
-    font-size: 4mm;
+    font-size: 4rem;
     min-width: 0;
-    padding: 1mm 0 0 1.5mm;
+    padding: 1rem 0 0 1.5rem;
 }
 .airport_name{
     color: white;
     font-family: 'Werksatz', sans-serif;
     font-weight: 600;
-    font-size: 2.5mm;
+    font-size: 2.5rem;
     min-width: 0;
-    padding-left: 1.5mm;
+    padding-left: 1.5rem;
     overflow: hidden;
     text-overflow: ellipsis;
     text-overflow: ".";

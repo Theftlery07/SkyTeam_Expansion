@@ -4,32 +4,21 @@ const modules = ["A", "B", "C", "D",
                         "5000", "Mute", "Rules", "Alarm", "Oil_Truck", "Headwind", "Tailwind", "Oil_Leak", "Real_Time", "Ice_Breaks", "Intern",
                         "Ability_1", "Ability_2"]
 const squares = []
+const cards = []
+let html
+const default_size = 4 // px
 
 function init(){
-
-}
-function make_square(){
-    let position = Number(document.body.lastElementChild.previousElementSibling.style.order) + 2
-    let square = new Square(position)
-    for (let i = 0; i < position; i++) {
-        square.move_up()
-    }
-    squares.push(square)
+    html = document.getElementsByTagName("html")[0]
+    // html.style.fontSize = default_size + "px"
 }
 function make_card(){
-    squares.push(new Top())
-    for (let i = 0; i < 3; i++) {
-        squares.push(new Square(i))
-    }
-    squares.push(new Bottom())
+    cards.push(new Card())
 }
 function clear_all(){
-    while(squares.length > 0){
-        squares[0].delete()
+    while(cards.length > 0){
+        cards.pop().delete()
     }
-}
-function save_card(){
-
 }
 
 function make_img(parent, src, class_name){
@@ -111,16 +100,63 @@ function make_break(parent){
     parent.appendChild(document.createElement("br"))
 }
 
+class Card{
+    constructor(size = 3) {
+        this.squares = []
+        this.card_area = make_div(document.body, "card")
+
+        this.add_button =
+            make_button(this.card_area, "", "Add Square!", () =>
+                this.add_square())
+        this.delete_button =
+            make_button(this.card_area, "", "Delete Card!", () =>
+            this.delete())
+
+        this.squares.push(new Top(this.card_area))
+        for (let i = 1; i < size+1; i++) {
+            this.squares.push(new Square(this.card_area, i))
+        }
+        this.squares.push(new Bottom(this.card_area))
+
+        this.resizer = new ResizeObserver((entries) => {
+            for (let entry of entries) {
+                const newHeight = entry.contentRect.height
+                this.resize(newHeight)
+            }
+        });
+        // this.resizer.observe(this.card_area);
+    }
+    add_square(){
+        let position = Number(this.card_area.lastElementChild.previousElementSibling.style.order) + 2
+        let square = new Square(this.card_area, position)
+        for (let i = 1; i < position; i++) {
+            square.move_up()
+        }
+        this.squares.push(square)
+    }
+    delete(){
+        this.card_area.remove()
+    }
+    resize(height){
+        let screen_height = window.innerHeight
+        let ratio = screen_height / height
+        let fontSize = parseFloat(html.style.fontSize) * ratio
+        html.style.fontSize = fontSize+"px"
+        document.body.style.fontSize = String(fontSize * 4)+"px"
+    }
+}
 class Square{
-    constructor(position){
-        this.main_area = make_div(document.body, "block")
+    constructor(parent, position){
+        this.body = parent;
+        this.main_area = make_div(this.body, "block")
+        this.main_area.classList.add("middle_block")
         this.main_area.style.order = position
         this.square = make_div(this.main_area, "square")
-        this.form_right = make_div(this.main_area, "form_right")
-        this.form_right_inputs = make_div(this.form_right, "inputs")
-        this.form_right_labels = make_div(this.form_right, "labels")
-        this.form_right_steering = make_div(this.form_right, "steering")
-        this.form_left = make_div(this.main_area, "form_left")
+        this.input_right = make_div(this.main_area, "input_right")
+        this.form_right_inputs = make_div(this.input_right, "inputs")
+        this.form_right_labels = make_div(this.input_right, "labels")
+        this.form_right_steering = make_div(this.input_right, "steering")
+        this.input_left = make_div(this.main_area, "input_left")
 
         this.content_setup(this.square)
 
@@ -144,13 +180,13 @@ class Square{
             this.update_nav(this.input_nav[i].checked, this.nav_good[i], this.nav_bad[i]))
         }
         this.up_button =
-            make_button(this.form_left, "", "↑", () =>
+            make_button(this.input_left, "left_button", "↑", () =>
                 this.move_up())
         this.delete_button =
-            make_button(this.form_left, "", "x", () =>
+            make_button(this.input_left, "left_button", "x", () =>
                 this.delete())
         this.down_button =
-            make_button(this.form_left, "", "↓", () =>
+            make_button(this.input_left, "left_button", "↓", () =>
                 this.move_down())
         squares.push(this)
     }
@@ -212,8 +248,8 @@ class Square{
         }
     }
     delete(){
-        if(document.body.lastElementChild.previousElementSibling !== null){
-            let position = Number(document.body.lastElementChild.previousElementSibling.style.order)
+        if(this.body.lastElementChild.previousElementSibling !== null){
+            let position = Number(this.body.lastElementChild.previousElementSibling.style.order)
             for (let i = this.main_area.style.order; i < position; i++) {
                 this.move_down()
             }
@@ -235,13 +271,14 @@ class Square{
     }
 }
 class Top extends Square{
-    constructor() {
-        super(-1);
+    constructor(parent) {
+        super(parent, 0);
+        this.main_area.classList.replace("middle_block", "top_block")
         this.square.classList.replace("square", "top")
         this.square.classList.add(top_color[0])
-        this.form_right_etc = make_div(this.form_right, "etc")
-        this.form_right_color = make_div(this.form_right, "color")
-        this.form_right_text = make_div(this.form_right, "text")
+        this.form_right_etc = make_div(this.input_right, "etc")
+        this.form_right_color = make_div(this.input_right, "color")
+        this.form_right_text = make_div(this.input_right, "text")
         this.extra_content_setup(this.square)
 
         this.input_code =
@@ -263,7 +300,6 @@ class Top extends Square{
             this.update_module(this.module[i], this.input_module[i].checked))
             this.input_module[i].style.backgroundImage = "url('" + "Images/Modules/"+modules[i]+".png" + "')"
         }
-        // this.input_module[4].style.width = "16mm"
         this.delete_button.style.visibility = "hidden"
         this.up_button.style.visibility = "hidden"
         this.down_button.style.visibility = "hidden"
@@ -294,8 +330,9 @@ class Top extends Square{
     }
 }
 class Bottom extends Square{
-    constructor() {
-        super(999);
+    constructor(parent) {
+        super(parent, 999);
+        this.main_area.classList.replace("middle_block", "bottom_block")
         this.square.classList.replace("square", "bottom")
         this.delete_button.style.visibility = "hidden"
         this.up_button.style.visibility = "hidden"
