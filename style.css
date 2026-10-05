@@ -30,7 +30,7 @@ html {
                          "input_left square input_right";
     grid-template-columns: min-content max-content 0fr;
     grid-template-rows: min-content min-content;
-    justify-items: left;
+    justify-content: center;
 }
 .input_right {
     padding-left: 0.5rem;
@@ -66,6 +66,7 @@ html {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+
 }
 .etc{
     grid-area: etc;
@@ -125,6 +126,7 @@ input.number{
     background-image: url('Images/Backgrounds/Top_Background_Black.png');
 }
 .top {
+    grid-area: square;
     background-image: url('Images/Backgrounds/Top_Background_Green.png');
     background-repeat: no-repeat;
     background-size: contain;
@@ -294,4 +296,9 @@ img.alarm{
     overflow: hidden;
     text-overflow: ellipsis;
     text-overflow: ".";
+}
+button{
+    height: 1.5rem;
+    width: auto;
+    font-size: 1rem;
 }

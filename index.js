@@ -273,7 +273,7 @@ class Top extends Square{
         super(parent, 0);
         this.square.classList.replace("square", "top")
         this.square.classList.add(top_color[0])
-        this.form_right_etc = make_div(this.input_right, "etc")
+        // this.form_right_etc = make_div(this.input_right, "etc")
         this.mod = make_div(this.main_area, "mod")
         this.form_right_color = make_div(this.input_right, "color")
         this.form_right_text = make_div(this.input_right, "text")
@@ -298,6 +298,7 @@ class Top extends Square{
             this.update_module(this.module[i], this.input_module[i].checked))
             this.input_module[i].style.backgroundImage = "url('" + "Images/Modules/"+modules[i]+".png" + "')"
         }
+        this.input_module[4].style.width = "4rem"
         this.delete_button.style.visibility = "hidden"
         this.up_button.style.visibility = "hidden"
         this.down_button.style.visibility = "hidden"
