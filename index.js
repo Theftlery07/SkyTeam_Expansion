@@ -170,7 +170,7 @@ class Card{
               <link rel="stylesheet" href="style.css">
               <!-- Optional: You can copy and inject style tags here if you need CSS -->
             </head>
-            <body onload="print_mode(this)">
+            <body>
               ${targetElement.outerHTML}
               <script>
               document.querySelectorAll('button, div.input_right, div.input_left, div.mod')
