@@ -156,7 +156,7 @@ class Card{
     print_mode(){
         document.querySelectorAll('button, div.input_right, div.input_left, div.mod')
             .forEach(el => {el.style.visibility = 'hidden';})
-        document.getElementsByTagName('html')[0].style.fontSize = '4mm'
+        document.getElementsByTagName('html')[0].style.fontSize = '5mm'
         setTimeout(() => window.print(), 100)
         this.resizer.unobserve(this.card_area);
         setTimeout(() => document.addEventListener('click', () => {this.design_mode()}, { once: true }), 500)
