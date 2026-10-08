@@ -235,7 +235,7 @@ class Square{
         for (let i = items.length; i > value; i--) {
             items[0].remove()
         }
-        parent.style.visibility = value > 0 ? "visible" : "hidden"
+        parent.style.visibility = parent.childElementCount > 0 ? "visible" : "hidden"
     }
     update_nav(value, yes, no){
         if (value === false){

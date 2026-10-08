@@ -186,6 +186,7 @@ div.airplane{
 img.airplane{
     width: 0.875rem;
     padding: 0.125rem;
+    order: 0;
 }
 img.navigation{
     width: 3rem;
@@ -315,4 +316,5 @@ button{
 .penguin{
     width: 0.875rem;
     padding: 0.125rem;
+    order: 1;
 }
