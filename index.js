@@ -171,12 +171,21 @@ class Card{
               <!-- Optional: You can copy and inject style tags here if you need CSS -->
             </head>
             <body onload="print_mode(this)">
-              <script src="index.js"></script>
               ${targetElement.outerHTML}
+              <script>
+              document.querySelectorAll('button, div.input_right, div.input_left, div.mod')
+                    .forEach(el => {el.style.display = 'none';})
+              document.getElementsByTagName('html')[0].style.fontSize = '4mm'
+              setTimeout(() => window.print(), 100)
+               
+                </script>
             </body>
           </html>
         `)
-                newWindow.document.close()
+        newWindow.document.close()
+        document.querySelectorAll('link[rel="stylesheet"], style').forEach(styleElement => {
+            newWindow.head.appendChild(styleElement.cloneNode(true));
+        });
     }
     resize(rect){
         let screen_height = window.innerHeight
