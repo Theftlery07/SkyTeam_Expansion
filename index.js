@@ -21,6 +21,19 @@ function clear_all(){
     }
 }
 
+function print_mode(){
+    document.querySelectorAll('button, div.input_right, div.input_left, div.mod')
+        .forEach(el => {el.style.display = 'none';})
+    document.getElementsByTagName('html')[0].style.fontSize = '4mm'
+    window.print()
+    // window.addEventListener('focus', function() {
+    //     // Add a slight delay to ensure the print process finishes
+    //     setTimeout(function() {
+    //         window.close();
+    //     }, 500);
+    // }, { once: true })
+}
+
 function make_img(parent, src, class_name){
     let img = document.createElement("img")
     img.src = src
@@ -112,6 +125,10 @@ class Card{
             make_button(this.card_area, "", "Delete Card!", () =>
             this.delete())
 
+        this.print_button =
+            make_button(this.card_area, "", "Print!", () =>
+            this.open_print_page())
+
         this.squares.push(new Top(this.card_area))
         for (let i = 1; i < size+1; i++) {
             this.squares.push(new Square(this.card_area, i))
@@ -135,6 +152,31 @@ class Card{
     }
     delete(){
         this.card_area.remove()
+    }
+    open_print_page(){
+        // 1. Select the HTML element you want to copy
+        const targetElement = this.card_area;
+
+        // 2. Open a new blank window/tab
+                const newWindow = window.open('about:blank', '_blank')
+
+        // 3. Write the cloned element's HTML directly into the new document
+                newWindow.document.open()
+                newWindow.document.write(`
+          <!DOCTYPE html>
+          <html>
+            <head>
+              <title>Print Card</title>
+              <link rel="stylesheet" href="style.css">
+              <!-- Optional: You can copy and inject style tags here if you need CSS -->
+            </head>
+            <body onload="print_mode(this)">
+              <script src="index.js"></script>
+              ${targetElement.outerHTML}
+            </body>
+          </html>
+        `)
+                newWindow.document.close()
     }
     resize(rect){
         let screen_height = window.innerHeight

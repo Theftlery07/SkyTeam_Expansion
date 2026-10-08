@@ -258,12 +258,14 @@ div.module{
     align-self: center;
     display: flex;
     justify-content: flex-end;
+    /*flex-wrap: wrap;*/
     padding-right: 0.25rem;
+    min-width: 0;
 }
 img.module{
     max-height: 1.75rem;
     flex: 0 1 auto;
-    min-width: 0;
+    min-width: 0.5rem;
     padding: 0 0.125rem 0 0.125rem;
     object-fit: contain;
     display: none
