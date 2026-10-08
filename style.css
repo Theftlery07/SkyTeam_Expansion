@@ -312,3 +312,7 @@ button{
     flex-direction: column;
     margin: 0 auto;
 }
+.penguin{
+    width: 0.875rem;
+    padding: 0.125rem;
+}

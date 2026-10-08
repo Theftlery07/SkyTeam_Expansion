@@ -197,6 +197,10 @@ class Square{
         this.input_airplane =
             make_input_number(this.form_right_inputs, "number", 0, 0, 6, () =>
                     this.update_number(this.airplane_area, this.input_airplane.value, "Images/Airplane.png", "airplane"))
+        make_label(this.form_right_labels, "", "Penguin")
+        this.input_penguins =
+            make_input_number(this.form_right_inputs, "number", 0, 0, 6, () =>
+                this.update_number(this.airplane_area, this.input_penguins.value, "Images/Penguin.png", "penguin"))
         make_label(this.form_right_labels, "", "Future")
         this.input_future =
             make_input_number(this.form_right_inputs, "number", 0, 0, 3, () =>
@@ -224,11 +228,12 @@ class Square{
         squares.push(this)
     }
     update_number(parent, value, src, class_name){
-        for (let i = parent.childElementCount; i < value; i++) {
+        let items = parent.getElementsByClassName(class_name);
+        for (let i = items.length; i < value; i++) {
             make_img(parent, src, class_name)
         }
-        for (let i = parent.childElementCount; i > value; i--) {
-            parent.lastElementChild.remove()
+        for (let i = items.length; i > value; i--) {
+            items[0].remove()
         }
         parent.style.visibility = value > 0 ? "visible" : "hidden"
     }
