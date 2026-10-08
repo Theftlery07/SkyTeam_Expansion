@@ -127,7 +127,7 @@ class Card{
 
         this.print_button =
             make_button(this.card_area, "", "Print!", () =>
-            this.open_print_page())
+            this.print_mode())
 
         this.squares.push(new Top(this.card_area))
         for (let i = 1; i < size+1; i++) {
@@ -153,39 +153,20 @@ class Card{
     delete(){
         this.card_area.remove()
     }
-    open_print_page(){
-        // 1. Select the HTML element you want to copy
-        const targetElement = this.card_area;
+    print_mode(){
+        document.querySelectorAll('button, div.input_right, div.input_left, div.mod')
+            .forEach(el => {el.style.visibility = 'hidden';})
+        document.getElementsByTagName('html')[0].style.fontSize = '4mm'
+        setTimeout(() => window.print(), 100)
+        this.resizer.unobserve(this.card_area);
+        setTimeout(() => document.addEventListener('click', () => {this.design_mode()}, { once: true }), 500)
 
-        // 2. Open a new blank window/tab
-                const newWindow = window.open('about:blank', '_blank')
 
-        // 3. Write the cloned element's HTML directly into the new document
-                newWindow.document.open()
-                newWindow.document.write(`
-          <!DOCTYPE html>
-          <html>
-            <head>
-              <title>Print Card</title>
-              <link rel="stylesheet" href="style.css">
-              <!-- Optional: You can copy and inject style tags here if you need CSS -->
-            </head>
-            <body>
-              ${targetElement.outerHTML}
-              <script>
-              document.querySelectorAll('button, div.input_right, div.input_left, div.mod')
-                    .forEach(el => {el.style.display = 'none';})
-              document.getElementsByTagName('html')[0].style.fontSize = '4mm'
-              setTimeout(() => window.print(), 100)
-               
-                </script>
-            </body>
-          </html>
-        `)
-        newWindow.document.close()
-        document.querySelectorAll('link[rel="stylesheet"], style').forEach(styleElement => {
-            newWindow.head.appendChild(styleElement.cloneNode(true));
-        });
+    }
+    design_mode(){
+        document.querySelectorAll('button, div.input_right, div.input_left, div.mod')
+            .forEach(el => {el.style.visibility = 'visible';})
+        this.resizer.observe(this.card_area);
     }
     resize(rect){
         let screen_height = window.innerHeight
